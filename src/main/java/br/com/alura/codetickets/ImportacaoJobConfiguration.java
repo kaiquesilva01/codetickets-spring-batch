@@ -53,6 +53,7 @@ public class ImportacaoJobConfiguration {
                 .resource(new FileSystemResource("files/dados.csv"))
                 .comments("--")
                 .delimited()
+                .delimiter(";")
                 .names("cpf","cliente","nascimento","evento","data", "tipoIngresso", "valor")
                 .targetType(Importacao.class)
                 .build();

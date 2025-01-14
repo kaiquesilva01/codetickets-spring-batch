@@ -20,7 +20,7 @@ public class Importacao {
     private String tipoIngresso;
     private Double valor;
 
-    private LocalDateTime horaImportação;
+    private LocalDateTime horaImportacao;
 
     public Long getId() {
         return id;
@@ -86,11 +86,11 @@ public class Importacao {
         this.valor = valor;
     }
 
-    public LocalDateTime getHoraImportação() {
-        return horaImportação;
+    public LocalDateTime getHoraImportacaoo() {
+        return horaImportacao;
     }
 
-    public void setHoraImportação(LocalDateTime horaImportação) {
-        this.horaImportação = horaImportação;
+    public void setHoraImportacao(LocalDateTime horaImportacao) {
+        this.horaImportacao = horaImportacao;
     }
 }
