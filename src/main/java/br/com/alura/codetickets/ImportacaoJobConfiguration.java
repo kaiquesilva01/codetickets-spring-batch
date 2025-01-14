@@ -37,6 +37,7 @@ public class ImportacaoJobConfiguration {
 
         return new JobBuilder("geracao-tickets",jobRepository)
                 .start(passoInicial)
+                .next(moverArquivosStep(jobRepository))
                 .incrementer(new RunIdIncrementer())
                 .build();
     }
@@ -81,5 +82,36 @@ public class ImportacaoJobConfiguration {
         return new ImportacaoProcessor();
     }
 
+    @Bean
+    public Tasklet moverArquivosTasklet() {
+        return (contribution, chunkContext) -> {
+            File pastaOrigem = new File("files");
+            File pastaDestino = new File("imported-files");
 
+            if (!pastaDestino.exists()) {
+                pastaDestino.mkdirs();
+            }
+
+            File[] arquivos = pastaOrigem.listFiles((dir, name) -> name.endsWith(".csv"));
+
+            if (arquivos != null) {
+                for (File arquivo : arquivos) {
+                    File arquivoDestino = new File(pastaDestino, arquivo.getName());
+                    if (arquivo.renameTo(arquivoDestino)) {
+                        System.out.println("Arquivo movido: " + arquivo.getName());
+                    } else {
+                        throw new RuntimeException("Não foi possível mover o arquivo: " + arquivo.getName());
+                    }
+                }
+            }
+            return RepeatStatus.FINISHED;
+        };
+    }
+
+    @Bean
+    public Step moverArquivosStep(JobRepository jobRepository) {
+        return new StepBuilder("mover-arquivo", jobRepository)
+                .tasklet(moverArquivosTasklet(), transactionManager)
+                .build();
+    }
 }
