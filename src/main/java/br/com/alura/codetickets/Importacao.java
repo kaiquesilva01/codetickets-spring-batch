@@ -86,7 +86,7 @@ public class Importacao {
         this.valor = valor;
     }
 
-    public LocalDateTime getHoraImportacaoo() {
+    public LocalDateTime getHoraImportacao() {
         return horaImportacao;
     }
 
