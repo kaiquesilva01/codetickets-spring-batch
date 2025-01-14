@@ -64,8 +64,8 @@ public class ImportacaoJobConfiguration {
         return new JdbcBatchItemWriterBuilder<Importacao>()
                 .dataSource(dataSource)
                 .sql(
-                    "INSERT INTO importacao (cpf, cliente, evento, data, tipo_ingresso, valor, hora_importacao) VALUES" +
-                           " (:cpf, :cliente, :evento, :data, :tipoIngresso, :valor, :horaImportacao)"
+                    "INSERT INTO importacao (cpf, cliente, nascimento,evento, data, tipo_ingresso, valor, hora_importacao) VALUES" +
+                           " (:cpf, :cliente, :nascimento ,:evento, :data, :tipoIngresso, :valor, :horaImportacao)"
                 )
                 .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider())
                 .build();
